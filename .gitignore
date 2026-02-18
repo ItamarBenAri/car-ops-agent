@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Database & uploads (local data only)
+Backend/data/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Claude Code memory (local session data)
+.claude/
+
+# Test artifacts
+Frontend/test-results/
+Frontend/tests/debug-output/
+playwright-report/
+
+# Personal learning notes (not part of the project)
+שלבי_יישום_קלוד_קוד_בפרוייקט_קיים.md
+style.css

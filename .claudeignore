@@ -1,0 +1,16 @@
+# Dependencies
+Frontend/node_modules/
+
+# Lock files (auto-generated, no source logic)
+Frontend/package-lock.json
+
+# Build output
+Frontend/dist/
+Frontend/.vite/
+
+# Binary font assets (agent skill resources)
+Frontend/.agents/skills/ui-design-system/canvas-fonts/*.ttf
+
+# Coverage & test artifacts
+Frontend/.agents/skills/ui-design-system/scripts/.coverage
+Frontend/.agents/skills/ui-design-system/scripts/tests/coverage-ui.json
