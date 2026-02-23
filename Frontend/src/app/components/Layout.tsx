@@ -31,6 +31,8 @@ import {
 import { Logo } from "./Logo";
 import { useIsMobile } from "./ui/use-mobile";
 import { useAuth } from "../contexts/AuthContext";
+import { carsService } from "../api/services/cars.service";
+import { CarData } from "../api/types";
 
 const navigation = [
   { name: "לוח בקרה", href: "/", icon: LayoutDashboard },
@@ -42,17 +44,18 @@ const navigation = [
   { name: "הגדרות ואבטחה", href: "/settings", icon: Settings },
 ];
 
-const cars = [
-  { id: "1", name: "מאזדה 3 - שלי", year: "2019" },
-  { id: "2", name: "טויוטה קורולה - של דנה", year: "2021" },
-];
-
 export function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const { isAuthenticated, loading, logout, userId } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cars, setCars] = useState<CarData[]>([]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    carsService.getAllCars().then(setCars).catch(() => {});
+  }, [isAuthenticated]);
 
   // Redirect to login only after auth has finished loading
   useEffect(() => {
@@ -192,7 +195,7 @@ export function Layout() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2" size={isMobile ? "sm" : "default"}>
                   <ChevronDown className="w-4 h-4" />
-                  <span className={isMobile ? "max-w-[120px] truncate" : ""}>{cars[0].name}</span>
+                  <span className={isMobile ? "max-w-[120px] truncate" : ""}>{cars[0]?.nickname ?? "רכב"}</span>
                   <Car className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -200,7 +203,7 @@ export function Layout() {
                 {cars.map((car) => (
                   <DropdownMenuItem key={car.id}>
                     <div className="flex flex-col items-end w-full">
-                      <span className="font-medium">{car.name}</span>
+                      <span className="font-medium">{car.nickname}</span>
                       <span className="text-xs text-muted-foreground">שנת {car.year}</span>
                     </div>
                   </DropdownMenuItem>
