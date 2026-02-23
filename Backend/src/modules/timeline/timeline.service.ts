@@ -89,12 +89,12 @@ export class TimelineService {
     return expenses.map((expense) => ({
       id: expense.id,
       title: `קבלה - ${expense.vendor}`,
-      date: expense.date.toISOString(),
+      date: new Date(expense.date).toISOString(),
       km: expense.odometerKm
-        ? expense.odometerKm.toLocaleString('he-IL') + ' ק״מ'
+        ? Number(expense.odometerKm).toLocaleString('he-IL') + ' ק״מ'
         : '-',
       vendor: expense.vendor,
-      amount: `₪${expense.amount.toLocaleString('he-IL')}`,
+      amount: `₪${Number(expense.amount).toLocaleString('he-IL')}`,
       category: expense.category,
       type: 'receipt' as const,
       documentLink: expense.documentId || undefined,
@@ -138,12 +138,12 @@ export class TimelineService {
     return maintenanceEvents.map((event) => ({
       id: event.id,
       title: event.title,
-      date: event.date.toISOString(),
+      date: new Date(event.date).toISOString(),
       km: event.odometerKm
-        ? event.odometerKm.toLocaleString('he-IL') + ' ק״מ'
+        ? Number(event.odometerKm).toLocaleString('he-IL') + ' ק״מ'
         : '-',
       vendor: event.vendor || '-',
-      amount: event.cost ? `₪${event.cost.toLocaleString('he-IL')}` : '-',
+      amount: event.cost ? `₪${Number(event.cost).toLocaleString('he-IL')}` : '-',
       category: event.category,
       type: 'maintenance' as const,
       documentLink: event.documentId || undefined,
@@ -183,9 +183,9 @@ export class TimelineService {
     return issues.map((issue) => ({
       id: issue.id,
       title: `תקלה - ${issue.title}`,
-      date: issue.reportedDate.toISOString(),
+      date: new Date(issue.reportedDate).toISOString(),
       km: issue.odometerKm
-        ? issue.odometerKm.toLocaleString('he-IL') + ' ק״מ'
+        ? Number(issue.odometerKm).toLocaleString('he-IL') + ' ק״מ'
         : '-',
       vendor: '-',
       amount: '-',

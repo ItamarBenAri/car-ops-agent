@@ -7,8 +7,13 @@ export class TimelineController {
   constructor(private readonly timelineService: TimelineService) {}
 
   @Get()
-  getTimeline(@Query() query: QueryTimelineDto, @Request() req) {
-    const userId = req.headers['x-user-id'] || 'default-owner-id';
-    return this.timelineService.getTimeline(query, userId);
+  async getTimeline(@Query() query: QueryTimelineDto, @Request() req) {
+    try {
+      const userId = req.headers['x-user-id'] || 'default-owner-id';
+      return await this.timelineService.getTimeline(query, userId);
+    } catch (error) {
+      // Handle error appropriately
+      throw error;
+    }
   }
 }

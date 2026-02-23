@@ -16,7 +16,7 @@ import {
 } from '@/database/entities';
 import { ParsingService } from '../../parsing/parsing.service';
 import { RemindersService } from '../../reminders/reminders.service';
-import { DOCUMENT_PROCESSING_QUEUE } from '../jobs.module';
+import { DOCUMENT_PROCESSING_QUEUE } from '../jobs.constants';
 
 @Processor(DOCUMENT_PROCESSING_QUEUE)
 export class DocumentProcessingProcessor {

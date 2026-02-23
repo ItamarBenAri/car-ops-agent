@@ -7,8 +7,7 @@ import { JobsController } from './jobs.controller';
 import { DocumentProcessingProcessor } from './processors/document-processing.processor';
 import { ParsingModule } from '../parsing/parsing.module';
 import { RemindersModule } from '../reminders/reminders.module';
-
-export const DOCUMENT_PROCESSING_QUEUE = 'document-processing';
+import { DOCUMENT_PROCESSING_QUEUE } from './jobs.constants';
 
 @Module({
   imports: [

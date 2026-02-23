@@ -9,7 +9,8 @@
  */
 
 const API_BASE_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3001/api';
-const API_TIMEOUT = (import.meta as any).env.VITE_API_TIMEOUT || 10000;
+const IS_DEV = (import.meta as any).env.DEV;
+const API_TIMEOUT = IS_DEV ? null : ((import.meta as any).env.VITE_API_TIMEOUT || 10000);
 
 class ApiClient {
   /**
@@ -22,9 +23,9 @@ class ApiClient {
     const userId = localStorage.getItem('userId');
     const authToken = localStorage.getItem('authToken');
 
-    // Create abort controller for timeout
+    // Create abort controller for timeout (disabled in dev)
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+    const timeoutId = API_TIMEOUT ? setTimeout(() => controller.abort(), API_TIMEOUT) : null;
 
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -38,7 +39,7 @@ class ApiClient {
         },
       });
 
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
 
       // Handle HTTP errors
       if (!response.ok) {
@@ -72,7 +73,7 @@ class ApiClient {
       // Parse and return response
       return await response.json();
     } catch (error) {
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
 
       // Handle network errors
       if (error instanceof TypeError) {
@@ -144,7 +145,7 @@ class ApiClient {
         body: formData,
       });
 
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
 
       if (!response.ok) {
         let errorMessage = 'שגיאה בהעלאת הקובץ';
@@ -157,7 +158,7 @@ class ApiClient {
 
       return await response.json();
     } catch (error) {
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       if (error instanceof TypeError) throw new Error('בעיית תקשורת - בדוק את החיבור לשרת');
       if (error instanceof Error && error.name === 'AbortError') throw new Error('הבקשה נכשלה - פג תוקף הזמן');
       throw error;

@@ -37,7 +37,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   ],
   migrations: [join(__dirname, '../database/migrations/**/*{.ts,.js}')],
   synchronize: true, // Auto-create tables in development
-  logging: true,
+  logging: false,
 };
 
 // DataSource for TypeORM CLI (migrations)

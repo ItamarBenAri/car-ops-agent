@@ -100,7 +100,7 @@ export class RemindersService {
 
     // Set time-based fields (always set date as fallback)
     if (intervals.intervalDays) {
-      if (!intervals.intervalKm) {
+      if (!reminder.type) {
         reminder.type = ReminderType.TIME_BASED;
       }
       reminder.intervalDays = intervals.intervalDays;

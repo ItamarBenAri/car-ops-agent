@@ -4,7 +4,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { Repository } from 'typeorm';
 import { Queue } from 'bull';
 import { Job, JobStatus, JobType } from '@/database/entities';
-import { DOCUMENT_PROCESSING_QUEUE } from './jobs.module';
+import { DOCUMENT_PROCESSING_QUEUE } from './jobs.constants';
 
 @Injectable()
 export class JobsService {
